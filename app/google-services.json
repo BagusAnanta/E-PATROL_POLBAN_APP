@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "420088478661",
+    "project_id": "e-patrol-polban",
+    "storage_bucket": "e-patrol-polban.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:420088478661:android:40601e5151006d0b3ce9ac",
+        "android_client_info": {
+          "package_name": "com.annas.e_patrolpolbanapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "420088478661-hm3ohdrmsiej2ulct4e6otui0t69eapg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFv6SvG80slCUX-84Zc0ugpWvirARR4Yo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "420088478661-hm3ohdrmsiej2ulct4e6otui0t69eapg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

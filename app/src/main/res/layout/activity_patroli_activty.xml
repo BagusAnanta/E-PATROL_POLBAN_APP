@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.patroliChecked.PatroliActivity">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:text="Kegiatan Patroli membutuhkan info lokasi dan hanya bisa dilakukan jika Petugas melakukan Foto Selfie."
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+
+        <LinearLayout
+            android:id="@+id/warninglinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="150dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvWarning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="1dp"
+                android:text="Halo, Apakah Anda Ingin Melakukan Patroli ?"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAbsensi"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@android:color/holo_red_light"
+                android:text="Registrasi Absen sekarang"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:cornerRadius="20dp"
+                app:elevation="5dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnHistory"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@android:color/holo_red_light"
+                android:text="Riwayat Patroli"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:cornerRadius="20dp"
+                app:elevation="5dp" />
+        </LinearLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
