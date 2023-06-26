@@ -65,7 +65,7 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/inputNama"
+                    android:id="@+id/inputNo"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:backgroundTint="@android:color/holo_red_light"
@@ -185,7 +185,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnMasuk"
+                    android:id="@+id/btnRecord"
                     style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "420088478661",
+    "firebase_url": "https://e-patrol-polban-default-rtdb.firebaseio.com",
     "project_id": "e-patrol-polban",
     "storage_bucket": "e-patrol-polban.appspot.com"
   },

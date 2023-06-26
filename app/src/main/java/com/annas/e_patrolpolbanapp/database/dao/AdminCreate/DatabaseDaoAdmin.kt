@@ -10,14 +10,14 @@ import com.annas.e_patrolpolbanapp.model.ModelDatabaseAdmin
 @Dao
 interface DatabaseDaoAdmin {
     @Query("SELECT * FROM create_admin_petugas_db")
-    fun getAllHistory(): LiveData<List<ModelDatabaseAdmin>>
+    fun getAllData(): LiveData<List<ModelDatabaseAdmin>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertData(vararg modelDatabasesAdmin: ModelDatabaseAdmin)
 
     @Query("DELETE FROM create_admin_petugas_db WHERE uid= :uid")
-    fun deleteHistoryFromId(uid : Int)
+    fun deleteDataFromId(uid : Int)
 
     @Query("DELETE FROM create_admin_petugas_db")
-    fun deleteAllHistory()
+    fun deleteAllData()
 }
