@@ -14,20 +14,15 @@ import com.annas.e_patrolpolbanapp.view.reportArea.FireBaseDataClassSafe
 import com.annas.e_patrolpolbanapp.view.reportArea.ReportAreaActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.kondisi_area.*
 
 class KondisiActivity : AppCompatActivity() {
-
-    lateinit var buttonAman : Button
-    lateinit var buttonTidak : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.kondisi_area)
 
-        buttonAman = findViewById(R.id.btn_cancel)
-        buttonTidak = findViewById(R.id.btn_confirm)
-
-        buttonAman.setOnClickListener {
+        btn_cancel.setOnClickListener {
             val rootNode : FirebaseDatabase = FirebaseDatabase.getInstance()
             val reference : DatabaseReference = rootNode.getReference("UserReportSafe")
 
@@ -44,7 +39,7 @@ class KondisiActivity : AppCompatActivity() {
             finish()
         }
 
-        buttonTidak.setOnClickListener {
+        btn_confirm.setOnClickListener {
             // in here we intent into reportAreaActivity
             val intent = Intent(this@KondisiActivity,ReportAreaActivity::class.java)
             startActivity(intent)

@@ -1,7 +1,6 @@
 package com.annas.e_patrolpolbanapp.view.adminShowPetugas
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,11 +9,11 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.annas.e_patrolpolbanapp.R
 import com.annas.e_patrolpolbanapp.model.ModelDatabaseAdmin
+import com.annas.e_patrolpolbanapp.view.component.DialogComponent
 import com.annas.e_patrolpolbanapp.view.main.MainActivity
 import com.annas.e_patrolpolbanapp.viewmodel.HistoryAdminViewModel
 import kotlinx.android.synthetic.main.activity_history_patroli.rvHistory
@@ -67,19 +66,25 @@ class ShowDataPetugas : AppCompatActivity(), DataPetugasAdapter.AdminAdapterCall
     }
 
     override fun onDelete(modelDatabaseAdmin: ModelDatabaseAdmin?) {
-        val alertDialogBuilder = AlertDialog.Builder(this)
-        alertDialogBuilder.setMessage("Hapus Data Petugas ini?")
-        alertDialogBuilder.setIcon(android.R.drawable.ic_dialog_alert)
-        alertDialogBuilder.setPositiveButton("Ya, Hapus") { dialogInterface, i ->
-            val uid = modelDatabaseAdmin!!.uid
-            historyAdminViewModel.deleteDataById(uid)
-            Toast.makeText(this@ShowDataPetugas, "Yeay! Data yang dipilih sudah dihapus",
-                Toast.LENGTH_SHORT).show()
+        val onPositif = {
+            try {
+                val uid = modelDatabaseAdmin!!.uid
+                historyAdminViewModel.deleteDataById(uid)
+                Toast.makeText(this@ShowDataPetugas, "Yeay! Data yang dipilih sudah dihapus",Toast.LENGTH_SHORT).show()
+            } catch (E : java.lang.NullPointerException){
+                Log.d("OnDeleteDataExeception",E.printStackTrace().toString())
+            }
         }
-        alertDialogBuilder.setNegativeButton("Batal") { dialogInterface: DialogInterface, i:
-        Int -> dialogInterface.cancel() }
-        val alertDialog = alertDialogBuilder.create()
-        alertDialog.show()
+        DialogComponent().DialogComponentOption(
+            this@ShowDataPetugas,
+            title = "Hapus Data Petugas",
+            message = "Hapus Data Petugas ini?",
+            iconSet = android.R.drawable.ic_dialog_alert,
+            textButtonNegative = "Batal",
+            onCancel = true,
+            onPositiveFunction = onPositif,
+            textButtonPositive = "Ya, Hapus"
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

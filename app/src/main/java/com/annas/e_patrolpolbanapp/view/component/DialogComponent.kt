@@ -11,16 +11,18 @@ class DialogComponent {
         message : String,
         iconSet : Int = android.R.drawable.ic_dialog_info,
         onNegativeFunction : () -> Any = {"OnNegatifFunction"},
+        textButtonNegative : String = "Tidak",
         onCancel : Boolean = false,
-        onPositiveFunction : () -> Any
+        onPositiveFunction : () -> Any,
+        textButtonPositive : String = "Ya"
     ){
         val builder = AlertDialog.Builder(context)
         builder.setMessage(message)
         builder.setCancelable(true)
-        builder.setNegativeButton("Batal") {
+        builder.setNegativeButton(textButtonNegative) {
                 dialog, which -> if(onCancel) dialog.cancel() else onNegativeFunction
         }
-        builder.setPositiveButton("Ya") { dialog, which -> onPositiveFunction}
+        builder.setPositiveButton(textButtonPositive) { dialog, which -> onPositiveFunction}
         val alertDialog = builder.create()
         alertDialog.show()
     }

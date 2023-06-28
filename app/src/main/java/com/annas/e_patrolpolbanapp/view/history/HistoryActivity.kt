@@ -3,18 +3,17 @@ package com.annas.e_patrolpolbanapp.view.history
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.annas.e_patrolpolbanapp.R
 import com.annas.e_patrolpolbanapp.model.ModelDatabase
-import com.annas.e_patrolpolbanapp.view.absen.AbsenActivity
+import com.annas.e_patrolpolbanapp.view.component.DialogComponent
 import com.annas.e_patrolpolbanapp.view.history.HistoryAdapter.HistoryAdapterCallback
 import com.annas.e_patrolpolbanapp.view.main.MainActivity
 import com.annas.e_patrolpolbanapp.viewmodel.HistoryViewModel
@@ -25,16 +24,12 @@ class HistoryActivity : AppCompatActivity(), HistoryAdapterCallback {
     lateinit var historyAdapter: HistoryAdapter
     lateinit var historyViewModel: HistoryViewModel
 
-    lateinit var warningLinearLayout : LinearLayout
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history_patroli)
-        warningLinearLayout = findViewById(R.id.warninglinear)
 
         setInitLayout()
         setViewModel()
-
     }
 
     private fun setInitLayout() {
@@ -44,7 +39,7 @@ class HistoryActivity : AppCompatActivity(), HistoryAdapterCallback {
             supportActionBar?.setDisplayShowTitleEnabled(false)
         }
 
-        warningLinearLayout.visibility = View.GONE
+        warninglinear.visibility = View.GONE
 
         historyAdapter = HistoryAdapter(this, modelDatabaseList, this)
         rvHistory.setHasFixedSize(true)
@@ -53,13 +48,13 @@ class HistoryActivity : AppCompatActivity(), HistoryAdapterCallback {
     }
 
     private fun setViewModel() {
-        historyViewModel = ViewModelProviders.of(this).get(HistoryViewModel::class.java)
+        historyViewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
         historyViewModel.dataLaporan.observe(this) { modelDatabases: List<ModelDatabase> ->
             if (modelDatabases.isEmpty()) {
-                warningLinearLayout.visibility = View.VISIBLE
+                warninglinear.visibility = View.VISIBLE
                 rvHistory.visibility = View.GONE
             } else {
-                warningLinearLayout.visibility = View.GONE
+                warninglinear.visibility = View.GONE
                 rvHistory.visibility = View.VISIBLE
             }
             historyAdapter.setDataAdapter(modelDatabases)
@@ -67,18 +62,26 @@ class HistoryActivity : AppCompatActivity(), HistoryAdapterCallback {
     }
 
     override fun onDelete(modelDatabase: ModelDatabase?) {
-        val alertDialogBuilder = AlertDialog.Builder(this)
-        alertDialogBuilder.setMessage("Hapus riwayat ini?")
-        alertDialogBuilder.setPositiveButton("Ya, Hapus") { dialogInterface, i ->
-            val uid = modelDatabase!!.uid
-            historyViewModel.deleteDataById(uid)
-            Toast.makeText(this@HistoryActivity, "Yeay! Data yang dipilih sudah dihapus",
-                Toast.LENGTH_SHORT).show()
+        val onPositif = {
+           try {
+               val uid = modelDatabase!!.uid
+               historyViewModel.deleteDataById(uid)
+               Toast.makeText(this@HistoryActivity, "Yeay! Data yang dipilih sudah dihapus",Toast.LENGTH_SHORT).show()
+           } catch (E: java.lang.NullPointerException){
+               Log.d("OnDeleteDataExeception",E.printStackTrace().toString())
+           }
         }
-        alertDialogBuilder.setNegativeButton("Batal") { dialogInterface: DialogInterface, i:
-        Int -> dialogInterface.cancel() }
-        val alertDialog = alertDialogBuilder.create()
-        alertDialog.show()
+        DialogComponent().DialogComponentOption(
+            this@HistoryActivity,
+            title = "Hapus Riwayat",
+            message = "Hapus riwayat ini?",
+            iconSet = android.R.drawable.ic_dialog_alert,
+            textButtonNegative = "Batal",
+            onCancel = true,
+            onPositiveFunction = onPositif,
+            textButtonPositive = "Ya, Hapus"
+
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
