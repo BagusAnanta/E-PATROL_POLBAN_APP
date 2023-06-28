@@ -12,14 +12,14 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.annas.e_patrolpolbanapp.R
-import com.annas.e_patrolpolbanapp.database.dao.AdminCreate.DatabaseDaoAdmin
 import com.annas.e_patrolpolbanapp.model.ModelDatabaseAdmin
 import com.annas.e_patrolpolbanapp.view.main.MainActivity
 import com.annas.e_patrolpolbanapp.viewmodel.HistoryAdminViewModel
-import kotlinx.android.synthetic.main.activity_history_patroli.*
+import kotlinx.android.synthetic.main.activity_history_patroli.rvHistory
+import kotlinx.android.synthetic.main.activity_history_patroli.toolbar
+import kotlinx.android.synthetic.main.activity_history_patroli.warninglinear
 
 class ShowDataPetugas : AppCompatActivity(), DataPetugasAdapter.AdminAdapterCallback {
     var modelDatabaseList: MutableList<ModelDatabaseAdmin> = ArrayList()
@@ -31,8 +31,6 @@ class ShowDataPetugas : AppCompatActivity(), DataPetugasAdapter.AdminAdapterCall
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_data_petugas)
-
-        warningLinearLayout = findViewById(R.id.warninglinear)
 
         setInitLayout()
         setViewModel()
@@ -57,11 +55,11 @@ class ShowDataPetugas : AppCompatActivity(), DataPetugasAdapter.AdminAdapterCall
         historyAdminViewModel = ViewModelProvider(this).get(HistoryAdminViewModel::class.java)
         historyAdminViewModel.dataPegawai.observe(this) { modelDatabasesAdmin: List<ModelDatabaseAdmin> ->
             if (modelDatabasesAdmin.isEmpty()) {
-                warningLinearLayout.visibility = View.VISIBLE
+                warninglinear.visibility = View.VISIBLE
                 rvHistory.visibility = View.GONE
                 Log.d("ModelDatabasesAdminSize", modelDatabasesAdmin.size.toString())
             } else {
-                warningLinearLayout.visibility = View.GONE
+                warninglinear.visibility = View.GONE
                 rvHistory.visibility = View.VISIBLE
             }
             datapetugasadapter.setDataAdminAdapter(modelDatabasesAdmin)

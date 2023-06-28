@@ -16,6 +16,7 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.DatePicker
@@ -69,7 +70,6 @@ class AbsenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_absen)
-        imageselfie = findViewById(R.id.imageSelfie)
 
         setInitLayout()
         setCurrentLocation()
@@ -231,7 +231,7 @@ class AbsenActivity : AppCompatActivity() {
             convertImage(strFilePath)
             // set in image into image
             val photo : Bitmap = data?.extras?.get("data") as Bitmap
-            imageselfie.setImageBitmap(photo)
+            imageSelfie.setImageBitmap(photo)
         }
     }
 
@@ -280,6 +280,8 @@ class AbsenActivity : AppCompatActivity() {
                     .into(imageSelfie)
                 strBase64Photo = bitmapToBase64(scaledBitmap)
             }
+        } else {
+            Log.w("File Image Not Exist", "Image File is Not Exist")
         }
     }
 

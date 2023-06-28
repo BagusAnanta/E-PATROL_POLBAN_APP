@@ -1,16 +1,20 @@
 package com.annas.e_patrolpolbanapp.view.adminInputPetugas
 
+import android.app.TimePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TimePicker
 import android.widget.Toast
 import com.annas.e_patrolpolbanapp.R
 import com.annas.e_patrolpolbanapp.view.main.MainActivity
 import com.annas.e_patrolpolbanapp.viewmodel.AdminViewModel
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.android.synthetic.main.activity_input_data_petugas.*
+import java.util.Calendar
 
 class InputDataPetugas : AppCompatActivity() {
     lateinit var inputNama : EditText
@@ -20,31 +24,28 @@ class InputDataPetugas : AppCompatActivity() {
     lateinit var inputUsername : TextInputEditText
     lateinit var inputPassword : TextInputEditText
     lateinit var buttonGetRecordData : Button
+    var gettimedata : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_input_data_petugas)
 
-        inputNama = findViewById(R.id.inputNamaPetugas)
-        inputNo = findViewById(R.id.inputNo)
-        inputArea = findViewById(R.id.inputArea)
-        inputWaktu = findViewById(R.id.inputWaktu)
-
-        // for akun petugas
-        inputUsername = findViewById(R.id.inputUsername)
-        inputPassword = findViewById(R.id.inputPassword)
-
         buttonGetRecordData = findViewById(R.id.btnRecord)
 
+        inputWaktu.setOnClickListener {
+            gettimedata = getTime()
+        }
+
         insertDataPetugas()
+
     }
 
     private fun insertDataPetugas(){
         buttonGetRecordData.setOnClickListener {
-            val nama_Petugas = inputNama.text.toString()
+            val nama_Petugas = inputNamaPetugas.text.toString()
             val no_Petugas = inputNo.text.toString()
             val area_petugas = inputArea.text.toString()
-            val waktu_kerja = inputWaktu.text.toString()
+            val waktu_kerja = gettimedata
 
             val username_Petugas_baru = inputUsername.text.toString()
             val password_Petugas_baru = inputPassword.text.toString()
@@ -64,7 +65,7 @@ class InputDataPetugas : AppCompatActivity() {
                     password_Petugas_baru
                 )
 
-                var listData = arrayOf(adminViewModel)
+                val listData = arrayOf(adminViewModel)
                 Log.d("Size Data", listData.size.toString())
 
                 Toast.makeText(this,"Data Anda berhasil dimasukkan!", Toast.LENGTH_SHORT).show()
@@ -74,5 +75,21 @@ class InputDataPetugas : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    private fun getTime() : String{
+        val timePicker : TimePickerDialog
+        val currentTime = Calendar.getInstance()
+        val hour = currentTime.get(Calendar.HOUR_OF_DAY)
+        val minutes = currentTime.get(Calendar.MINUTE)
+        var timeSet = ""
+
+        timePicker = TimePickerDialog(this@InputDataPetugas,object : TimePickerDialog.OnTimeSetListener{
+            override fun onTimeSet(p0: TimePicker?, hour: Int, minutes: Int) {
+                timeSet = String.format("%d : %d",hour,minutes)
+            }
+
+        },hour,minutes,false)
+        return timeSet
     }
 }

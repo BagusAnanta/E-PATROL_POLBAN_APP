@@ -9,6 +9,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.annas.e_patrolpolbanapp.R
 import com.annas.e_patrolpolbanapp.model.ModelDatabaseAdmin
+import kotlinx.android.synthetic.main.list_datapetugas_admin.view.*
 
 class DataPetugasAdapter(
     var context: Context,
@@ -38,11 +39,11 @@ class DataPetugasAdapter(
     }
 
     inner class ViewHolderAdminData(itemView : View) : RecyclerView.ViewHolder(itemView){
-        var no_petugas : TextView = itemView.findViewById(R.id.tvNomorPetugas)
-        var nama_petugas : TextView = itemView.findViewById(R.id.tvNamaPetugas)
-        var area_kerja : TextView = itemView.findViewById(R.id.tvAreaKerja)
-        var waktu_kerja : TextView = itemView.findViewById(R.id.tvWaktuKerja)
-        var cardview_show : CardView = itemView.findViewById(R.id.cvShow)
+        var no_petugas : TextView = itemView.tvNomorPetugas
+        var nama_petugas : TextView = itemView.tvNamaPetugas
+        var area_kerja : TextView = itemView.tvAreaKerja
+        var waktu_kerja : TextView = itemView.tvWaktuKerja
+        var cardview_show : CardView = itemView.cvShow
 
         init {
             cardview_show.setOnClickListener {
