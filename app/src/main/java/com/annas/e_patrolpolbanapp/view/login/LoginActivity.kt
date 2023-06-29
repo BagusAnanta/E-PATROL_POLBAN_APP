@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -14,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import com.annas.e_patrolpolbanapp.R
 import com.annas.e_patrolpolbanapp.utils.SessionLogin
 import com.annas.e_patrolpolbanapp.view.main.MainActivity
+import com.google.firebase.FirebaseApp
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_login.*
@@ -25,7 +27,8 @@ class LoginActivity : AppCompatActivity() {
     lateinit var login_by : Spinner
 
     lateinit var rootNode : FirebaseDatabase
-    lateinit var reference : DatabaseReference
+    var reference : DatabaseReference? = null
+    lateinit var firebaseapp : FirebaseApp
 
     val login_by_data = arrayOf("Petugas","Pengawas","Admin","Tamu")
     var REQ_PERMISSION = 101
@@ -97,14 +100,17 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun firebaseDataSave(username : String,password : String, login_by : String){
-        rootNode = FirebaseDatabase.getInstance()
-        reference = rootNode.getReference("Login")
-
+        try{
+            firebaseapp = FirebaseApp.initializeApp(this@LoginActivity)!!
+            rootNode = FirebaseDatabase.getInstance() // error in here
+            reference = rootNode.getReference("Login")
+        } catch (E : NullPointerException){
+            // nullpointerexception get
+            Log.e("NullPointerException",E.toString())
+        }
 
         val logindataclass = LoginDataClass(username,password, login_by)
-        reference.child(username).setValue(logindataclass)
-
-
+        reference?.child(username)?.setValue(logindataclass)
     }
 
     override fun onRequestPermissionsResult(
