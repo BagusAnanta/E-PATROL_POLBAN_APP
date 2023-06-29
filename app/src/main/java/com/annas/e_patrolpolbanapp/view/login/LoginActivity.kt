@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var strNama: String
     lateinit var strPassword: String
 
-    val login_by_data = arrayOf("Petugas","Pemimpin","Admin")
+    val login_by_data = arrayOf("Petugas","Pimpinan","Admin")
     var REQ_PERMISSION = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,11 +105,6 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    override fun onBackPressed() {
-        // if user logOut or back we must delete a data or logout user
-        session.deleteData()
     }
 
 

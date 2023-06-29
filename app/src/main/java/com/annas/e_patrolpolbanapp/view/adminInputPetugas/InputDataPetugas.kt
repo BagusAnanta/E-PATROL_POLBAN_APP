@@ -31,21 +31,22 @@ class InputDataPetugas : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_input_data_petugas)
 
-
-        inputWaktu.setOnClickListener {
-            getTime()
-        }
+        inputNama = findViewById(R.id.inputNamaPetugas)
+        inputNo = findViewById(R.id.inputNo)
+        inputArea = findViewById(R.id.inputArea)
+        inputWaktu = findViewById(R.id.inputWaktu)
+        inputUsername = findViewById(R.id.inputUsername)
+        inputPassword = findViewById(R.id.inputPassword)
 
         insertDataPetugas()
-
     }
 
     private fun insertDataPetugas(){
         btnRecord.setOnClickListener {
-            val nama_Petugas = inputNamaPetugas.text.toString()
+            val nama_Petugas = inputNama.text.toString()
             val no_Petugas = inputNo.text.toString()
             val area_petugas = inputArea.text.toString()
-            val waktu_kerja = getTime()
+            val waktu_kerja = inputWaktu.text.toString()
 
             val username_Petugas_baru = inputUsername.text.toString()
             val password_Petugas_baru = inputPassword.text.toString()
@@ -77,21 +78,5 @@ class InputDataPetugas : AppCompatActivity() {
         }
     }
 
-    private fun getTime() : String{
-        val timePicker : TimePickerDialog
-        val currentTime = Calendar.getInstance()
-        val hour = currentTime.get(Calendar.HOUR_OF_DAY)
-        val minutes = currentTime.get(Calendar.MINUTE)
-        var timeSet = ""
 
-        timePicker = TimePickerDialog(this@InputDataPetugas,object : TimePickerDialog.OnTimeSetListener{
-            override fun onTimeSet(p0: TimePicker?, hour: Int, minutes: Int) {
-                timeSet = inputWaktu.setText(String.format("%d : %d",hour,minutes)).toString()
-            }
-
-        },hour,minutes,false)
-
-        timePicker.show()
-        return timeSet
-    }
 }

@@ -143,4 +143,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val session = SessionLogin(this@MainActivity)
+        session.deleteData()
+    }
+
 }
