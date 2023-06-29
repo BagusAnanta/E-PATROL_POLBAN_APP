@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20sp"
-                android:text="SELAMAT DATANG DI E-PATROL POLBAN"
+                android:text="@string/selamat_datang_di_e_patrol_polban"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -64,7 +64,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:hint="Masukan Nama"
+                        android:hint="@string/masukan_nama"
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:maxLines="1"
@@ -94,7 +94,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:hint="Masukan Password"
+                        android:hint="@string/masukan_password"
                         android:imeOptions="actionDone"
                         android:inputType="textPassword"
                         android:maxLines="1"
@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginTop="10dp"
-                    android:text="Lupa Password?"
+                    android:text="@string/lupa_password"
                     android:textColor="@android:color/holo_red_light"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -119,8 +119,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Login Sebagai :"
-                    android:textSize="20sp" />
+                    android:text="@string/login_sebagai"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/spinner_option"
@@ -138,7 +140,7 @@
                     android:layout_marginEnd="40dp"
                     android:layout_marginBottom="10dp"
                     android:backgroundTint="@android:color/holo_red_light"
-                    android:text="Masuk"
+                    android:text="@string/masuk"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     app:cornerRadius="20dp"

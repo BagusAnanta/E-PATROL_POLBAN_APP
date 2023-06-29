@@ -20,9 +20,9 @@ class DialogComponent {
         builder.setMessage(message)
         builder.setCancelable(true)
         builder.setNegativeButton(textButtonNegative) {
-                dialog, which -> if(onCancel) dialog.cancel() else onNegativeFunction
+                dialog, which -> if(onCancel) dialog.cancel() else dialog.apply { onNegativeFunction }
         }
-        builder.setPositiveButton(textButtonPositive) { dialog, which -> onPositiveFunction}
+        builder.setPositiveButton(textButtonPositive) { dialog, which -> dialog.apply { onPositiveFunction }}
         val alertDialog = builder.create()
         alertDialog.show()
     }

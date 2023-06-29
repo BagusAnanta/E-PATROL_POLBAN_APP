@@ -2,6 +2,7 @@ package com.annas.e_patrolpolbanapp.view.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.annas.e_patrolpolbanapp.R
 import com.annas.e_patrolpolbanapp.utils.SessionLogin
@@ -32,24 +33,37 @@ class MainActivity : AppCompatActivity() {
         cvPetugasPatroli.setOnClickListener {
             strTitle = "Login Petugas"
             // PatroliActivity Activity
-            val intent = Intent(this@MainActivity, PatroliActivity::class.java)
-            intent.putExtra(AbsenActivity.DATA_TITLE, strTitle)
-            startActivity(intent)
+            if(session.getLoginBy().equals("Petugas")){
+                val intent = Intent(this@MainActivity, PatroliActivity::class.java)
+                intent.putExtra(AbsenActivity.DATA_TITLE, strTitle)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this@MainActivity,"Anda Bukan Petugas, tidak dapat masuk", Toast.LENGTH_SHORT).show()
+            }
         }
 
         cvPimpinan.setOnClickListener {
-            strTitle = "Login Pimpinan"
-            val intent = Intent(this@MainActivity, PagePimpinan::class.java)
-            intent.putExtra(AbsenActivity.DATA_TITLE, strTitle)
-            startActivity(intent)
+            if(session.getLoginBy().equals("Pimpinan")){
+                strTitle = "Login Pimpinan"
+                val intent = Intent(this@MainActivity, PagePimpinan::class.java)
+                intent.putExtra(AbsenActivity.DATA_TITLE, strTitle)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this@MainActivity,"Anda Bukan Pimpinan, tidak dapat masuk", Toast.LENGTH_SHORT).show()
+            }
         }
 
         cvAdmin.setOnClickListener {
+            if(session.getLoginBy().equals("Admin")){
+                checkAdminIsRegister()
+            } else {
+                Toast.makeText(this@MainActivity,"Anda Bukan Admin, tidak dapat masuk", Toast.LENGTH_SHORT).show()
+            }
            /* strTitle = "Login Admin"
             val intent = Intent(this@MainActivity, InputDataPetugas::class.java)
             intent.putExtra(AbsenActivity.DATA_TITLE, strTitle)
             startActivity(intent)*/
-            checkAdminIsRegister()
+
         }
 
 
@@ -69,7 +83,12 @@ class MainActivity : AppCompatActivity() {
                 session.logoutUser()
                 finishAffinity()
             }
-            DialogComponent().DialogComponentOption(this@MainActivity, message = "Yakin Anda ingin Logout ?", onPositiveFunction = onPositif, onCancel = true)
+            DialogComponent().DialogComponentOption(
+                this@MainActivity,
+                message = "Yakin Anda ingin Logout ?",
+                onPositiveFunction = onPositif,
+                onCancel = true
+            )
         }
     }
 

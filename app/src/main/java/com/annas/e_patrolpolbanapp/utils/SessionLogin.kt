@@ -19,11 +19,15 @@ class SessionLogin(var context: Context) {
     var editor: SharedPreferences.Editor
     var PRIVATE_MODE = 0
 
-    fun createLoginSession(nama: String) {
-        editor.putBoolean(IS_LOGIN, true)
+    fun createLoginSession(nama: String,password : String,login_by : String) {
         editor.putString(KEY_NAMA, nama)
+        editor.putString(KEY_PASS,password)
+        editor.putString(KEY_LOGIN_BY,login_by)
+        editor.putBoolean(IS_LOGIN, true)
         editor.commit()
     }
+
+
 
     fun checkLogin() {
         if (!isLoggedIn()) {
@@ -44,15 +48,24 @@ class SessionLogin(var context: Context) {
     }
 
     fun isLoggedIn(): Boolean = pref.getBoolean(IS_LOGIN, false)
+    fun getNameUser() : String? = pref.getString(KEY_NAMA, "UserName")
+    fun getPassword() : String? = pref.getString(KEY_PASS, "Password")
+    fun getLoginBy() : String? = pref.getString(KEY_LOGIN_BY, "LoginBy")
 
     companion object {
         private const val PREF_NAME = "AbsensiPref"
+        private const val PREF_PASS = "PasswordPref"
+        private const val PREF_LOGIN_BY = "Admin"
         private const val IS_LOGIN = "IsLoggedIn"
         const val KEY_NAMA = "NAMA"
+        const val KEY_PASS = "PASS"
+        const val KEY_LOGIN_BY = "LOGIN_BY"
     }
 
     init {
         pref = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE)
+        pref = context.getSharedPreferences(PREF_PASS, PRIVATE_MODE)
+        pref = context.getSharedPreferences(PREF_LOGIN_BY, PRIVATE_MODE)
         editor = pref.edit()
     }
 }

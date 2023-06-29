@@ -24,21 +24,13 @@ class LoginActivity : AppCompatActivity() {
     lateinit var session: SessionLogin
     lateinit var strNama: String
     lateinit var strPassword: String
-    lateinit var login_by : Spinner
 
-    lateinit var rootNode : FirebaseDatabase
-    var reference : DatabaseReference? = null
-    lateinit var firebaseapp : FirebaseApp
-
-    val login_by_data = arrayOf("Petugas","Pengawas","Admin","Tamu")
+    val login_by_data = arrayOf("Petugas","Pemimpin","Admin","Tamu")
     var REQ_PERMISSION = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        login_by = findViewById(R.id.spinner_option)
-
 
         setPermission()
         setInitLayout()
@@ -66,19 +58,19 @@ class LoginActivity : AppCompatActivity() {
         }
 
         // Spinner in here
-        if(login_by != null){
+        if(spinner_option != null){
             val adapter = ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,login_by_data)
-            login_by.adapter = adapter
+            spinner_option.adapter = adapter
         }
 
-        login_by.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        spinner_option.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, pos: Int, p3: Long) {
                 // get Item in here
                 getData = login_by_data[pos].toString()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+                Toast.makeText(this@LoginActivity,"Mohon Masukkan Plihan Login anda!", Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -88,29 +80,13 @@ class LoginActivity : AppCompatActivity() {
             strPassword = inputPassword.text.toString()
 
             if (strNama.isEmpty() || strPassword.isEmpty()) {
-                Toast.makeText(this@LoginActivity, "Form tidak boleh kosong!",
-                    Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@LoginActivity, "Form tidak boleh kosong!", Toast.LENGTH_SHORT).show()
             } else {
-                firebaseDataSave(strNama,strPassword,getData)
                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                 startActivity(intent)
-                session.createLoginSession(strNama)
+                session.createLoginSession(strNama,strPassword,getData)
             }
         }
-    }
-
-    private fun firebaseDataSave(username : String,password : String, login_by : String){
-        try{
-            firebaseapp = FirebaseApp.initializeApp(this@LoginActivity)!!
-            rootNode = FirebaseDatabase.getInstance() // error in here
-            reference = rootNode.getReference("Login")
-        } catch (E : NullPointerException){
-            // nullpointerexception get
-            Log.e("NullPointerException",E.toString())
-        }
-
-        val logindataclass = LoginDataClass(username,password, login_by)
-        reference?.child(username)?.setValue(logindataclass)
     }
 
     override fun onRequestPermissionsResult(
@@ -129,6 +105,11 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onBackPressed() {
+        // if user logOut or back we must delete a data or logout user
+        session.logoutUser()
     }
 
 

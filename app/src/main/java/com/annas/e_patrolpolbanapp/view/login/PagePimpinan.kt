@@ -46,6 +46,5 @@ class PagePimpinan : AppCompatActivity() {
              onCancel = true,
              onPositiveFunction = onPositif
          )
-
     }
 }
