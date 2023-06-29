@@ -24,7 +24,6 @@ class InputDataPetugas : AppCompatActivity() {
     lateinit var inputWaktu : EditText
     lateinit var inputUsername : TextInputEditText
     lateinit var inputPassword : TextInputEditText
-    lateinit var buttonGetRecordData : Button
     var gettimedata : String = ""
     var listData = ArrayList<ModelDatabaseAdmin>()
 
@@ -32,10 +31,9 @@ class InputDataPetugas : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_input_data_petugas)
 
-        buttonGetRecordData = findViewById(R.id.btnRecord)
 
         inputWaktu.setOnClickListener {
-            gettimedata = getTime()
+            getTime()
         }
 
         insertDataPetugas()
@@ -43,11 +41,11 @@ class InputDataPetugas : AppCompatActivity() {
     }
 
     private fun insertDataPetugas(){
-        buttonGetRecordData.setOnClickListener {
+        btnRecord.setOnClickListener {
             val nama_Petugas = inputNamaPetugas.text.toString()
             val no_Petugas = inputNo.text.toString()
             val area_petugas = inputArea.text.toString()
-            val waktu_kerja = inputWaktu.text.toString()
+            val waktu_kerja = getTime()
 
             val username_Petugas_baru = inputUsername.text.toString()
             val password_Petugas_baru = inputPassword.text.toString()
@@ -88,10 +86,12 @@ class InputDataPetugas : AppCompatActivity() {
 
         timePicker = TimePickerDialog(this@InputDataPetugas,object : TimePickerDialog.OnTimeSetListener{
             override fun onTimeSet(p0: TimePicker?, hour: Int, minutes: Int) {
-                timeSet = String.format("%d : %d",hour,minutes)
+                timeSet = inputWaktu.setText(String.format("%d : %d",hour,minutes)).toString()
             }
 
         },hour,minutes,false)
+
+        timePicker.show()
         return timeSet
     }
 }
