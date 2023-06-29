@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var strNama: String
     lateinit var strPassword: String
 
-    val login_by_data = arrayOf("Petugas","Pemimpin","Admin","Tamu")
+    val login_by_data = arrayOf("Petugas","Pemimpin","Admin")
     var REQ_PERMISSION = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {

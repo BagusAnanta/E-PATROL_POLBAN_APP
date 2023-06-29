@@ -17,7 +17,7 @@ class DataPetugasAdapter(
     var adapterCallBack: AdminAdapterCallback) : RecyclerView.Adapter<DataPetugasAdapter.ViewHolderAdminData>(){
 
     fun setDataAdminAdapter(items : List<ModelDatabaseAdmin>){
-        modelDatabaseAdmin.clear()
+        // modelDatabaseAdmin.clear()
         modelDatabaseAdmin.addAll(items)
         notifyDataSetChanged()
     }

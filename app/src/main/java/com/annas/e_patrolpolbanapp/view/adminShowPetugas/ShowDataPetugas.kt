@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,7 +24,6 @@ class ShowDataPetugas : AppCompatActivity(), DataPetugasAdapter.AdminAdapterCall
     lateinit var datapetugasadapter: DataPetugasAdapter
     lateinit var historyAdminViewModel: HistoryAdminViewModel
 
-    lateinit var warningLinearLayout : LinearLayout
     lateinit var context : Context
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +40,9 @@ class ShowDataPetugas : AppCompatActivity(), DataPetugasAdapter.AdminAdapterCall
             supportActionBar?.setDisplayShowTitleEnabled(false)
         }
 
-        warningLinearLayout.visibility = View.GONE
+        warninglinear.visibility = View.GONE
 
-        datapetugasadapter = DataPetugasAdapter(this,modelDatabaseList,this)
+        datapetugasadapter = DataPetugasAdapter(this@ShowDataPetugas,modelDatabaseList,this)
         rvHistory.setHasFixedSize(true)
         rvHistory.layoutManager = LinearLayoutManager(this)
         rvHistory.adapter = datapetugasadapter
@@ -68,7 +66,7 @@ class ShowDataPetugas : AppCompatActivity(), DataPetugasAdapter.AdminAdapterCall
     override fun onDelete(modelDatabaseAdmin: ModelDatabaseAdmin?) {
         val onPositif = {
             try {
-                val uid = modelDatabaseAdmin!!.uid
+                val uid = modelDatabaseAdmin!!.uid // warning : Potentially null value!!!
                 historyAdminViewModel.deleteDataById(uid)
                 Toast.makeText(this@ShowDataPetugas, "Yeay! Data yang dipilih sudah dihapus",Toast.LENGTH_SHORT).show()
             } catch (E : java.lang.NullPointerException){
