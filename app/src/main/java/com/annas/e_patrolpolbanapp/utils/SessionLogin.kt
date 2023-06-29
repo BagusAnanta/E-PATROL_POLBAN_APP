@@ -47,6 +47,11 @@ class SessionLogin(var context: Context) {
         context.startActivity(intent)
     }
 
+    fun deleteData(){
+        editor.clear()
+        editor.commit()
+    }
+
     fun isLoggedIn(): Boolean = pref.getBoolean(IS_LOGIN, false)
     fun getNameUser() : String? = pref.getString(KEY_NAMA, "UserName")
     fun getPassword() : String? = pref.getString(KEY_PASS, "Password")

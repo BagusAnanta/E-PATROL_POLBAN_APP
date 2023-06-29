@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TimePicker
 import android.widget.Toast
 import com.annas.e_patrolpolbanapp.R
+import com.annas.e_patrolpolbanapp.model.ModelDatabaseAdmin
 import com.annas.e_patrolpolbanapp.view.main.MainActivity
 import com.annas.e_patrolpolbanapp.viewmodel.AdminViewModel
 import com.google.android.material.textfield.TextInputEditText
@@ -25,6 +26,7 @@ class InputDataPetugas : AppCompatActivity() {
     lateinit var inputPassword : TextInputEditText
     lateinit var buttonGetRecordData : Button
     var gettimedata : String = ""
+    var listData = ArrayList<ModelDatabaseAdmin>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +47,7 @@ class InputDataPetugas : AppCompatActivity() {
             val nama_Petugas = inputNamaPetugas.text.toString()
             val no_Petugas = inputNo.text.toString()
             val area_petugas = inputArea.text.toString()
-            val waktu_kerja = gettimedata
+            val waktu_kerja = inputWaktu.text.toString()
 
             val username_Petugas_baru = inputUsername.text.toString()
             val password_Petugas_baru = inputPassword.text.toString()

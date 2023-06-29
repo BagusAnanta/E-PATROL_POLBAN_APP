@@ -1,5 +1,6 @@
 package com.annas.e_patrolpolbanapp.view.main
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -93,7 +94,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkAdminIsRegister(){
-        val onPositif = {
+        /*val onPositif = {
             val intent = Intent(this@MainActivity, InputDataPetugas::class.java)
             startActivity(intent)
             finish()
@@ -114,7 +115,31 @@ class MainActivity : AppCompatActivity() {
             onNegativeFunction = onNegatif,
             onCancel = false,
             onPositiveFunction = onPositif
-        )
+        )*/
+
+        val builder = AlertDialog.Builder(this@MainActivity)
+        builder.setTitle("Register Petugas")
+        builder.setMessage("Apakah Anda Ingin Registrasi Petugas?")
+        builder.setIcon(android.R.drawable.ic_dialog_info)
+
+        // if positive button option
+        builder.setPositiveButton("Ya"){dialogInterface, which ->
+            // we gonna intent in here
+            val intent = Intent(this@MainActivity, InputDataPetugas::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        // if negative button option
+        builder.setNegativeButton("Tidak"){ dialogInterface, which ->
+            // no Anymore code in here
+            val intent = Intent(this@MainActivity, ShowDataPetugas::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        val alertDialog : AlertDialog = builder.create()
+        alertDialog.show()
 
     }
 

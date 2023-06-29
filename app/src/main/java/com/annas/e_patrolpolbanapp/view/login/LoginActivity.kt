@@ -109,7 +109,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         // if user logOut or back we must delete a data or logout user
-        session.logoutUser()
+        session.deleteData()
     }
 
 
