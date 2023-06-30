@@ -64,7 +64,7 @@ class ShowDataPetugas : AppCompatActivity(), DataPetugasAdapter.AdminAdapterCall
     }
 
     override fun onDelete(modelDatabaseAdmin: ModelDatabaseAdmin?) {
-        val onPositif = {
+       /* val onPositif = {
             try {
                 val uid = modelDatabaseAdmin!!.uid // warning : Potentially null value!!!
                 historyAdminViewModel.deleteDataById(uid)
@@ -82,7 +82,8 @@ class ShowDataPetugas : AppCompatActivity(), DataPetugasAdapter.AdminAdapterCall
             onCancel = true,
             onPositiveFunction = onPositif,
             textButtonPositive = "Ya, Hapus"
-        )
+        )*/
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

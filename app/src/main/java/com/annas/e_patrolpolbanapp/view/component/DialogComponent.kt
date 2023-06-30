@@ -1,6 +1,7 @@
 package com.annas.e_patrolpolbanapp.view.component
 
 import android.content.Context
+import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
 
 class DialogComponent {
@@ -10,7 +11,7 @@ class DialogComponent {
         title : String = "Dialog Alert",
         message : String,
         iconSet : Int = android.R.drawable.ic_dialog_info,
-        onNegativeFunction : () -> Any = {"OnNegatifFunction"},
+        onNegativeFunction : (dialog : DialogInterface, which : Any) -> Any,
         textButtonNegative : String = "Tidak",
         onCancel : Boolean = false,
         onPositiveFunction : () -> Any,

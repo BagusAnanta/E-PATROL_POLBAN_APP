@@ -108,6 +108,14 @@ class AbsenActivity : AppCompatActivity() {
                     if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) == true){
                         // if a GPS is true we recursive this function for get address
                         // setCurrentLocation()
+                        for(i in 1..5){
+                            if(i <= 5){
+                                setCurrentLocation()
+                            } else {
+                                Toast.makeText(this@AbsenActivity,"Gagal mendapatkan GPS", Toast.LENGTH_SHORT).show()
+                                break
+                            }
+                        }
                     } else if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) == false) {
                         // if a GPS null and GPS enable is false
                         progressDialog.dismiss()

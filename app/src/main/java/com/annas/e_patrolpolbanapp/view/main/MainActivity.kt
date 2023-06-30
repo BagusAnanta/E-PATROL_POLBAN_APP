@@ -11,8 +11,10 @@ import com.annas.e_patrolpolbanapp.view.absen.AbsenActivity
 import com.annas.e_patrolpolbanapp.view.adminInputPetugas.InputDataPetugas
 import com.annas.e_patrolpolbanapp.view.adminShowPetugas.ShowDataPetugas
 import com.annas.e_patrolpolbanapp.view.component.DialogComponent
+import com.annas.e_patrolpolbanapp.view.login.LoginActivity
 import com.annas.e_patrolpolbanapp.view.login.PagePimpinan
 import com.annas.e_patrolpolbanapp.view.patroliChecked.PatroliActivity
+import com.annas.e_patrolpolbanapp.view.reportArea.ReportAreaActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -34,33 +36,45 @@ class MainActivity : AppCompatActivity() {
         cvPetugasPatroli.setOnClickListener {
             strTitle = "Login Petugas"
             // PatroliActivity Activity
-            if(session.getLoginBy().equals("Petugas")){
-                val intent = Intent(this@MainActivity, PatroliActivity::class.java)
+            if (session.getLoginBy().equals("Petugas")) {
+                val intent = Intent(this@MainActivity, ReportAreaActivity::class.java)
                 intent.putExtra(AbsenActivity.DATA_TITLE, strTitle)
                 startActivity(intent)
             } else {
-                Toast.makeText(this@MainActivity,"Anda Bukan Petugas, tidak dapat masuk", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@MainActivity,
+                    "Anda Bukan Petugas, tidak dapat masuk",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
         cvPimpinan.setOnClickListener {
-            if(session.getLoginBy().equals("Pimpinan")){
+            if (session.getLoginBy().equals("Pimpinan")) {
                 strTitle = "Login Pimpinan"
                 val intent = Intent(this@MainActivity, PagePimpinan::class.java)
                 intent.putExtra(AbsenActivity.DATA_TITLE, strTitle)
                 startActivity(intent)
             } else {
-                Toast.makeText(this@MainActivity,"Anda Bukan Pimpinan, tidak dapat masuk", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@MainActivity,
+                    "Anda Bukan Pimpinan, tidak dapat masuk",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
         cvAdmin.setOnClickListener {
-            if(session.getLoginBy().equals("Admin")){
+            if (session.getLoginBy().equals("Admin")) {
                 checkAdminIsRegister()
             } else {
-                Toast.makeText(this@MainActivity,"Anda Bukan Admin, tidak dapat masuk", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@MainActivity,
+                    "Anda Bukan Admin, tidak dapat masuk",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-           /* strTitle = "Login Admin"
+            /* strTitle = "Login Admin"
             val intent = Intent(this@MainActivity, InputDataPetugas::class.java)
             intent.putExtra(AbsenActivity.DATA_TITLE, strTitle)
             startActivity(intent)*/
@@ -69,7 +83,7 @@ class MainActivity : AppCompatActivity() {
 
 
         imageLogout.setOnClickListener {
-           /* val builder = AlertDialog.Builder(this@MainActivity)
+            val builder = AlertDialog.Builder(this@MainActivity)
             builder.setMessage("Yakin Anda ingin Logout?")
             builder.setCancelable(true)
             builder.setNegativeButton("Batal") { dialog, which -> dialog.cancel() }
@@ -79,8 +93,8 @@ class MainActivity : AppCompatActivity() {
             }
             val alertDialog = builder.create()
             alertDialog.show()
-        }*/
-            val onPositif = {
+        }
+            /*val onPositif = {
                 session.logoutUser()
                 finishAffinity()
             }
@@ -89,8 +103,7 @@ class MainActivity : AppCompatActivity() {
                 message = "Yakin Anda ingin Logout ?",
                 onPositiveFunction = onPositif,
                 onCancel = true
-            )
-        }
+            )*/
     }
 
     private fun checkAdminIsRegister(){
@@ -147,6 +160,9 @@ class MainActivity : AppCompatActivity() {
         super.onBackPressed()
         val session = SessionLogin(this@MainActivity)
         session.deleteData()
+        val intent = Intent(this@MainActivity,LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 }

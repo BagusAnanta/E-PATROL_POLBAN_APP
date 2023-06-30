@@ -1,6 +1,7 @@
 package com.annas.e_patrolpolbanapp.view.reportArea
 
 import android.Manifest
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -34,21 +35,22 @@ import java.io.IOException
 import java.util.UUID
 
 class ReportAreaActivity : AppCompatActivity() {
-    lateinit var takeCameraImage : ImageView
-    lateinit var kejadianInput : EditText
-    lateinit var submitData : Button
+    lateinit var takeCameraImage: ImageView
+    lateinit var kejadianInput: EditText
+    lateinit var submitData: Button
 
-    lateinit var rootNode : FirebaseDatabase
-    lateinit var reference : DatabaseReference
+    lateinit var rootNode: FirebaseDatabase
+    lateinit var reference: DatabaseReference
 
     private val PIC_ID = 123
     private val REQUEST_CAMERA_CODE = 124
     private var Uidcode = 1
 
-   lateinit var filepath : Uri
-   lateinit var firebaseStorage : FirebaseStorage
-   lateinit var storageReference : StorageReference
+    lateinit var filepath: Uri
+    lateinit var firebaseStorage: FirebaseStorage
+    lateinit var storageReference: StorageReference
     val GenerateUUID = UUID.randomUUID().toString()
+    var fileURI: Uri? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,9 +62,17 @@ class ReportAreaActivity : AppCompatActivity() {
         submitData = findViewById(R.id.btnInputReport)
 
         // check permission
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
             // if permission is not gratted
-            ActivityCompat.requestPermissions(this@ReportAreaActivity, arrayOf(Manifest.permission.CAMERA),REQUEST_CAMERA_CODE)
+            ActivityCompat.requestPermissions(
+                this@ReportAreaActivity,
+                arrayOf(Manifest.permission.CAMERA),
+                REQUEST_CAMERA_CODE
+            )
         }
 
         takeCameraImage.setOnClickListener {
@@ -83,25 +93,63 @@ class ReportAreaActivity : AppCompatActivity() {
             val isSafe = "Not Safe"
 
             // input into data class
-            val firebaseDataClass = FireBaseDataClassNoSafe(photo_path,deskripsi,isSafe)
+            val firebaseDataClass = FireBaseDataClassNoSafe(photo_path, deskripsi, isSafe)
 
             // setValue in here
             reference.child(convert_Uid).setValue(firebaseDataClass)
 
-            // after send data, we intent this
-            val intent = Intent(ReportAreaActivity@this,MainActivity::class.java)
+            //Upload A image photo
+            uploadPhoto()
+
+            val intent = Intent(ReportAreaActivity@ this, MainActivity::class.java)
             startActivity(intent)
             finish()
+
+            Toast.makeText(this@ReportAreaActivity,"Upload Data berhasil",Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == PIC_ID && resultCode == RESULT_OK && data != null){
-            val photo : Bitmap = data?.extras?.get("data") as Bitmap
-            takeCameraImage.setImageBitmap(photo)
+        if (requestCode == PIC_ID && resultCode == RESULT_OK && data != null && data.data != null) {
+            fileURI = data.data
 
+            try {
+                val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(contentResolver, fileURI)
+                val photo: Bitmap = data?.extras?.get("data") as Bitmap
+                takeCameraImage.setImageBitmap(photo)
+            } catch (E: Exception) {
+                E.printStackTrace()
             }
         }
+    }
+
+    private fun uploadPhoto(){
+        if (fileURI != null) {
+            // we make progress Dialog in Here
+            val progressDialog = ProgressDialog(this@ReportAreaActivity)
+            progressDialog.setTitle("Uploading Image")
+            progressDialog.setMessage("Upload a Image data")
+            progressDialog.show()
+
+            val reference: StorageReference =
+                FirebaseStorage.getInstance().getReference().child(GenerateUUID)
+            reference.putFile(fileURI!!).addOnSuccessListener {
+                progressDialog.dismiss()
+                Toast.makeText(
+                    this@ReportAreaActivity,
+                    "Image Upload Successful",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }.addOnFailureListener {
+                progressDialog.dismiss()
+                Toast.makeText(
+                    this@ReportAreaActivity,
+                    "Fail to Upload a Image",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
 }

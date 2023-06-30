@@ -62,7 +62,7 @@ class HistoryActivity : AppCompatActivity(), HistoryAdapterCallback {
     }
 
     override fun onDelete(modelDatabase: ModelDatabase?) {
-        val onPositif = {
+        /*val onPositif = {
            try {
                val uid = modelDatabase!!.uid
                historyViewModel.deleteDataById(uid)
@@ -81,7 +81,7 @@ class HistoryActivity : AppCompatActivity(), HistoryAdapterCallback {
             onPositiveFunction = onPositif,
             textButtonPositive = "Ya, Hapus"
 
-        )
+        )*/
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
