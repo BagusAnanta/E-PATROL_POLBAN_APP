@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.annas.e_patrolpolbanapp.R
 import com.annas.e_patrolpolbanapp.model.ModelDatabaseAdmin
 import com.annas.e_patrolpolbanapp.view.main.MainActivity
@@ -24,8 +25,11 @@ class InputDataPetugas : AppCompatActivity() {
     lateinit var inputWaktu : EditText
     lateinit var inputUsername : TextInputEditText
     lateinit var inputPassword : TextInputEditText
+    lateinit var adminViewModel: AdminViewModel
     var gettimedata : String = ""
     var listData = ArrayList<ModelDatabaseAdmin>()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +42,8 @@ class InputDataPetugas : AppCompatActivity() {
         inputUsername = findViewById(R.id.inputUsername)
         inputPassword = findViewById(R.id.inputPassword)
 
+        // This Problem Brooooo Warning !!! thats way you data is  not Insert!
+        adminViewModel = ViewModelProvider(this,(ViewModelProvider.AndroidViewModelFactory.getInstance(this.application) as ViewModelProvider.Factory)).get(AdminViewModel::class.java)
         insertDataPetugas()
     }
 
@@ -56,7 +62,6 @@ class InputDataPetugas : AppCompatActivity() {
                 Toast.makeText(this,"Data Tidak Boleh Kosong !", Toast.LENGTH_SHORT).show()
             } else {
                 // insert data
-                val adminViewModel: AdminViewModel? = null
                 adminViewModel?.addDataPetugas(
                     nama_Petugas,
                     no_Petugas,

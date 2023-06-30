@@ -14,6 +14,10 @@ class HistoryAdminViewModel(application: Application) : AndroidViewModel(applica
     var dataPegawai : LiveData<List<ModelDatabaseAdmin>>
     var databaseAdminDao : DatabaseDaoAdmin? = getInstance(application)?.appDatabaseAdmin?.databaseDaoAdmin()
 
+    init {
+        dataPegawai = databaseAdminDao!!.getAllData()
+    }
+
     fun deleteDataById(uid : Int){
         Completable.fromAction {
             databaseAdminDao?.deleteDataFromId(uid)
@@ -23,7 +27,4 @@ class HistoryAdminViewModel(application: Application) : AndroidViewModel(applica
             .subscribe()
     }
 
-    init {
-        dataPegawai = databaseAdminDao!!.getAllData()
-    }
 }

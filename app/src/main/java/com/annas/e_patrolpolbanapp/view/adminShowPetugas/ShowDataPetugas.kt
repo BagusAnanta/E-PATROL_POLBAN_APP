@@ -56,6 +56,7 @@ class ShowDataPetugas : AppCompatActivity(), DataPetugasAdapter.AdminAdapterCall
                 warninglinear.visibility = View.VISIBLE
                 rvHistory.visibility = View.GONE
                 Log.d("ModelDatabasesAdminSize", modelDatabasesAdmin.size.toString())
+                Toast.makeText(this,"Non Available element ${modelDatabasesAdmin.size}", Toast.LENGTH_SHORT).show()
             } else {
                 warninglinear.visibility = View.GONE
                 rvHistory.visibility = View.VISIBLE
