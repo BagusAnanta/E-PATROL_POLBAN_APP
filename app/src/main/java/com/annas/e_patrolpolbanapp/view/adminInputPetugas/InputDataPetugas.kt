@@ -42,7 +42,7 @@ class InputDataPetugas : AppCompatActivity() {
         inputUsername = findViewById(R.id.inputUsername)
         inputPassword = findViewById(R.id.inputPassword)
 
-        // This Problem Brooooo Warning !!! thats way you data is  not Insert!
+        // Please dont forget this if you use viewmodel
         adminViewModel = ViewModelProvider(this,(ViewModelProvider.AndroidViewModelFactory.getInstance(this.application) as ViewModelProvider.Factory)).get(AdminViewModel::class.java)
         insertDataPetugas()
     }

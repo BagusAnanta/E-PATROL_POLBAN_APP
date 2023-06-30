@@ -5,9 +5,11 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.media.MediaScannerConnection
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Button
@@ -31,8 +33,11 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
-import java.util.UUID
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ReportAreaActivity : AppCompatActivity() {
     lateinit var takeCameraImage: ImageView
@@ -99,7 +104,7 @@ class ReportAreaActivity : AppCompatActivity() {
             reference.child(convert_Uid).setValue(firebaseDataClass)
 
             //Upload A image photo
-            uploadPhoto()
+            // uploadPhoto()
 
             val intent = Intent(ReportAreaActivity@ this, MainActivity::class.java)
             startActivity(intent)
@@ -119,14 +124,50 @@ class ReportAreaActivity : AppCompatActivity() {
                 val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(contentResolver, fileURI)
                 val photo: Bitmap = data?.extras?.get("data") as Bitmap
                 takeCameraImage.setImageBitmap(photo)
+                saveAsDirectory(photo)
             } catch (E: Exception) {
                 E.printStackTrace()
             }
         }
     }
 
-    private fun uploadPhoto(){
-        if (fileURI != null) {
+    private fun saveAsDirectory(bitmap : Bitmap){
+        // make directory and check a directory in here
+        val directory = File(Environment.getExternalStorageDirectory().toString() + "/Condition_Photo/")
+        if(!directory.exists()){
+            // if a directory is not exist
+            directory.mkdirs()
+        }
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val fileName = "IMG_$timeStamp.jpg"
+
+        val file = File(directory,fileName)
+
+        try{
+            val outputStream = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream)
+
+            outputStream.flush()
+            outputStream.close()
+            addPhotoIntoGallery(file)
+        } catch (E : IOException){
+            E.printStackTrace()
+        }
+    }
+
+    private fun addPhotoIntoGallery(file : File){
+        MediaScannerConnection.scanFile(
+            this,
+            arrayOf(file.absolutePath),
+            null
+        ){_,_ ->
+            // photo complete up in gallery
+            Log.i("OnPhotoIntoGallery", "Photo up into gallery succesful")
+        }
+    }
+
+    private fun uploadPhoto(fileUri : Uri?){
+        if (fileUri != null) {
             // we make progress Dialog in Here
             val progressDialog = ProgressDialog(this@ReportAreaActivity)
             progressDialog.setTitle("Uploading Image")
@@ -134,8 +175,8 @@ class ReportAreaActivity : AppCompatActivity() {
             progressDialog.show()
 
             val reference: StorageReference =
-                FirebaseStorage.getInstance().getReference().child(GenerateUUID)
-            reference.putFile(fileURI!!).addOnSuccessListener {
+                FirebaseStorage.getInstance().getReference().child("images/${GenerateUUID}.jpg")
+            reference.putFile(fileUri!!).addOnSuccessListener {
                 progressDialog.dismiss()
                 Toast.makeText(
                     this@ReportAreaActivity,
