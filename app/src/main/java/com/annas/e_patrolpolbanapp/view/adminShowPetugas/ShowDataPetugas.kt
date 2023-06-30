@@ -1,5 +1,6 @@
 package com.annas.e_patrolpolbanapp.view.adminShowPetugas
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -83,6 +84,19 @@ class ShowDataPetugas : AppCompatActivity(), DataPetugasAdapter.AdminAdapterCall
             onPositiveFunction = onPositif,
             textButtonPositive = "Ya, Hapus"
         )*/
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setMessage("Hapus Data Petugas ini?")
+        alertDialogBuilder.setIcon(android.R.drawable.ic_dialog_alert)
+        alertDialogBuilder.setPositiveButton("Ya, Hapus") { dialogInterface, i ->
+            val uid = modelDatabaseAdmin!!.uid
+            historyAdminViewModel.deleteDataById(uid)
+            Toast.makeText(this@ShowDataPetugas, "Yeay! Data yang dipilih sudah dihapus",
+                Toast.LENGTH_SHORT).show()
+        }
+        alertDialogBuilder.setNegativeButton("Batal") { dialogInterface, i:
+        Int -> dialogInterface.cancel() }
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
 
     }
 

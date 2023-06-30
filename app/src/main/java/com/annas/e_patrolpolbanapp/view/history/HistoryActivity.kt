@@ -80,8 +80,20 @@ class HistoryActivity : AppCompatActivity(), HistoryAdapterCallback {
             onCancel = true,
             onPositiveFunction = onPositif,
             textButtonPositive = "Ya, Hapus"
-
         )*/
+
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setMessage("Hapus riwayat ini?")
+        alertDialogBuilder.setPositiveButton("Ya, Hapus") { dialogInterface, i ->
+            val uid = modelDatabase!!.uid
+            historyViewModel.deleteDataById(uid)
+            Toast.makeText(this@HistoryActivity, "Yeay! Data yang dipilih sudah dihapus",
+                Toast.LENGTH_SHORT).show()
+        }
+        alertDialogBuilder.setNegativeButton("Batal") { dialogInterface: DialogInterface, i:
+        Int -> dialogInterface.cancel() }
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
