@@ -103,9 +103,6 @@ class ReportAreaActivity : AppCompatActivity() {
             // setValue in here
             reference.child(convert_Uid).setValue(firebaseDataClass)
 
-            //Upload A image photo
-            // uploadPhoto()
-
             val intent = Intent(ReportAreaActivity@ this, MainActivity::class.java)
             startActivity(intent)
             finish()
@@ -117,21 +114,37 @@ class ReportAreaActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == PIC_ID && resultCode == RESULT_OK && data != null && data.data != null) {
-            fileURI = data.data
-
-            try {
-                val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(contentResolver, fileURI)
-                val photo: Bitmap = data?.extras?.get("data") as Bitmap
-                takeCameraImage.setImageBitmap(photo)
-                saveAsDirectory(photo)
-            } catch (E: Exception) {
-                E.printStackTrace()
+        if (requestCode == PIC_ID && resultCode == RESULT_OK) {
+            if (data != null) {
+                onCaptureImage(data)
             }
         }
     }
 
-    private fun saveAsDirectory(bitmap : Bitmap){
+    private fun onCaptureImage(data : Intent){
+        val photo: Bitmap = data.extras?.get("data") as Bitmap
+        val byteOutputStream = ByteArrayOutputStream()
+        photo.compress(Bitmap.CompressFormat.JPEG,90,byteOutputStream)
+        val bytedata = byteOutputStream.toByteArray()
+        takeCameraImage.setImageBitmap(photo)
+        uploadImageData(bytedata)
+    }
+
+    private fun uploadImageData(byteData : ByteArray){
+        // generate from UUID
+        val storagereference : StorageReference = storageReference.child("patroliImage/${GenerateUUID}.jpg")
+        storagereference.putBytes(byteData)
+            .addOnSuccessListener {
+                // onSuccesfully
+                Toast.makeText(this@ReportAreaActivity,"Foto Berhasil Diupload",Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener{
+                // onFailed
+                Toast.makeText(this@ReportAreaActivity, "Foto Gagal DiUpload, Silahkan Ulangi Lagi", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    /*private fun saveAsDirectory(bitmap : Bitmap){
         // make directory and check a directory in here
         val directory = File(Environment.getExternalStorageDirectory().toString() + "/Condition_Photo/")
         if(!directory.exists()){
@@ -192,5 +205,5 @@ class ReportAreaActivity : AppCompatActivity() {
                 ).show()
             }
         }
-    }
+    }*/
 }
