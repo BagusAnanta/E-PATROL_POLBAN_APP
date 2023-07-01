@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             strTitle = "Login Petugas"
             // PatroliActivity Activity
             if (session.getLoginBy().equals("Petugas")) {
-                val intent = Intent(this@MainActivity, ReportAreaActivity::class.java)
+                val intent = Intent(this@MainActivity, PatroliActivity::class.java)
                 intent.putExtra(AbsenActivity.DATA_TITLE, strTitle)
                 startActivity(intent)
             } else {

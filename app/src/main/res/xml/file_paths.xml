@@ -15,4 +15,7 @@
     <files-path
         name="files"
         path="." />
+    <external-files-path
+        name="image_data"
+        path="Picture"/>
 </paths>
