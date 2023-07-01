@@ -103,7 +103,7 @@ class ReportAreaActivity : AppCompatActivity() {
             // setValue in here
             reference.child(convert_Uid).setValue(firebaseDataClass)
 
-            val intent = Intent(ReportAreaActivity@ this, MainActivity::class.java)
+            val intent = Intent(ReportAreaActivity@this, MainActivity::class.java)
             startActivity(intent)
             finish()
 
