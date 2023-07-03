@@ -65,7 +65,6 @@ class AbsenActivity : AppCompatActivity() {
     lateinit var strImageName: String
     lateinit var absenViewModel: AbsenViewModel
     lateinit var progressDialog: ProgressDialog
-    lateinit var imageselfie : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -184,7 +183,7 @@ class AbsenActivity : AppCompatActivity() {
                                 )
                                 cameraIntent.putExtra("android.intent.extra.USE_FRONT_CAMERA", true)
                                 cameraIntent.putExtra("android.intent.extras.LENS_FACING_FRONT", 1)
-                                cameraIntent.putExtra("android.intent.extras.CAMERA_FACING", android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT)
+                                cameraIntent.putExtra("android.intent.extras.CAMERA_FACING", 1)
 
                                 // Samsung
                                 cameraIntent.putExtra("camerafacing", "front")
@@ -203,9 +202,7 @@ class AbsenActivity : AppCompatActivity() {
                                         createImageFile()
                                     )
                                 )
-                                if(cameraIntent.resolveActivity(packageManager) != null) {
-                                    startActivityForResult(cameraIntent, REQ_CAMERA)
-                                }
+                                startActivityForResult(cameraIntent,REQ_CAMERA)
                             } catch (ex: IOException) {
                                 Toast.makeText(this@AbsenActivity,
                                     "Ups, gagal membuka kamera", Toast.LENGTH_SHORT).show()
@@ -235,12 +232,7 @@ class AbsenActivity : AppCompatActivity() {
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == REQ_CAMERA && requestCode == RESULT_OK){
-            convertImage(strFilePath)
-            // set in image into image
-            val photo : Bitmap = data?.extras?.get("data") as Bitmap
-            imageSelfie.setImageBitmap(photo)
-        }
+        convertImage(strFilePath)
     }
 
     private fun convertImage(imageFilePath: String?) {
@@ -304,7 +296,7 @@ class AbsenActivity : AppCompatActivity() {
             } else {
                 // insert data in here
                 absenViewModel.addDataAbsen(
-                    strBase64Photo,
+                    strBase64Photo, // I think this potentially exception ?
                     strNama,
                     strTanggal,
                     strCurrentLocation,
