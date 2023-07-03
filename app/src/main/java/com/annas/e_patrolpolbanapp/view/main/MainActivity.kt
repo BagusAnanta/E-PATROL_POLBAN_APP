@@ -15,6 +15,7 @@ import com.annas.e_patrolpolbanapp.view.login.LoginActivity
 import com.annas.e_patrolpolbanapp.view.login.PagePimpinan
 import com.annas.e_patrolpolbanapp.view.patroliChecked.PatroliActivity
 import com.annas.e_patrolpolbanapp.view.reportArea.ReportAreaActivity
+import com.annas.e_patrolpolbanapp.view.scan.CodeScannerActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             strTitle = "Login Petugas"
             // PatroliActivity Activity
             if (session.getLoginBy().equals("Petugas")) {
-                val intent = Intent(this@MainActivity, PatroliActivity::class.java)
+                val intent = Intent(this@MainActivity, CodeScannerActivity::class.java)
                 intent.putExtra(AbsenActivity.DATA_TITLE, strTitle)
                 startActivity(intent)
             } else {

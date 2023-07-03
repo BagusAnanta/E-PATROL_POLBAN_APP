@@ -22,11 +22,13 @@ class KondisiActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.kondisi_area)
 
+        // in this firebase please do not content a symbol because can potentially exception
+
         btn_cancel.setOnClickListener {
             val rootNode : FirebaseDatabase = FirebaseDatabase.getInstance()
             val reference : DatabaseReference = rootNode.getReference("UserReportSafe")
 
-            val get_qrdata = intent.getStringExtra("QrCOdeDecode")!!
+            val get_qrdata = intent.getStringExtra("QrCOdeDecode").toString()!!
             val isSafe = "Safe"
             val firebaseDataClassSafe = FireBaseDataClassSafe(get_qrdata,isSafe)
             reference.child(get_qrdata).setValue(firebaseDataClassSafe)

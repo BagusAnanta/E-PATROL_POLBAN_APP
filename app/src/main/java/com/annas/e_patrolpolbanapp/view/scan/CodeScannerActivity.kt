@@ -14,6 +14,7 @@ import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.annas.e_patrolpolbanapp.databinding.ActivityCodeScannerBinding
 import com.annas.e_patrolpolbanapp.view.areacondition.KondisiActivity
+import kotlinx.android.synthetic.main.activity_code_scanner.*
 
 class CodeScannerActivity : AppCompatActivity() {
 
@@ -44,7 +45,7 @@ class CodeScannerActivity : AppCompatActivity() {
             decodeCallback = DecodeCallback {
                 runOnUiThread {
                     // change to text source from qr scan (we can save a data output in here)
-                    binding.tvOutput.text = it.text
+                    tv_output.text = it.text
                     // intent in here (After we get a text from scanner)
                     val intent = Intent(this@CodeScannerActivity,KondisiActivity::class.java)
                     intent.putExtra("QrCOdeDecode",it.text.toString())
