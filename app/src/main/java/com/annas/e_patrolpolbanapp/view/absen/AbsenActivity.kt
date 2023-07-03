@@ -311,14 +311,10 @@ class AbsenActivity : AppCompatActivity() {
                     strKeterangan
                 )
                 Toast.makeText(this@AbsenActivity, "Laporan Anda terkirim, tunggu info selanjutnya ya!", Toast.LENGTH_SHORT).show()
+                // intent in here after laporan is ok
+                val intent = Intent(this@AbsenActivity, CodeScannerActivity::class.java)
+                startActivity(intent)
                 finish()
-
-                btnMasuk.setOnClickListener {
-                    strTitle = "Patroli"
-                    val intent = Intent(this@AbsenActivity, CodeScannerActivity::class.java)
-                    intent.putExtra(AbsenActivity.DATA_TITLE, strTitle)
-                    startActivity(intent)
-                }
             }
 
         }
