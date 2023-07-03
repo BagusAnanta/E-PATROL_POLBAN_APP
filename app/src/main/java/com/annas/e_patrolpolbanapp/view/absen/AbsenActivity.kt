@@ -312,6 +312,7 @@ class AbsenActivity : AppCompatActivity() {
                 )
                 Toast.makeText(this@AbsenActivity, "Laporan Anda terkirim, tunggu info selanjutnya ya!", Toast.LENGTH_SHORT).show()
                 // intent in here after laporan is ok
+                // this problem in here
                 val intent = Intent(this@AbsenActivity, CodeScannerActivity::class.java)
                 startActivity(intent)
                 finish()
