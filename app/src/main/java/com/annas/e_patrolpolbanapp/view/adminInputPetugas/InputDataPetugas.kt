@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.annas.e_patrolpolbanapp.R
 import com.annas.e_patrolpolbanapp.model.ModelDatabaseAdmin
+import com.annas.e_patrolpolbanapp.view.main.AdminMenu
 import com.annas.e_patrolpolbanapp.view.main.MainActivity
 import com.annas.e_patrolpolbanapp.view.qrgenerate.QrGenerate
 import com.annas.e_patrolpolbanapp.viewmodel.AdminViewModel
@@ -77,12 +78,19 @@ class InputDataPetugas : AppCompatActivity() {
 
                 Toast.makeText(this,"Data Anda berhasil dimasukkan!", Toast.LENGTH_SHORT).show()
 
-                val intent = Intent(this@InputDataPetugas,QrGenerate::class.java)
+                val intent = Intent(this@InputDataPetugas,AdminMenu::class.java)
                 startActivity(intent)
                 finish()
             }
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        val intent = Intent(this@InputDataPetugas,AdminMenu::class.java)
+        startActivity(intent)
+        finish()
+    }
 
 }

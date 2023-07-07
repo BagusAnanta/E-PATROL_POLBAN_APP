@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity() {
         // if positive button option
         builder.setPositiveButton("Ya"){dialogInterface, which ->
             // we gonna intent in here
-            val intent = Intent(this@MainActivity, InputDataPetugas::class.java)
+            val intent = Intent(this@MainActivity, AdminMenu::class.java)
             startActivity(intent)
             finish()
         }

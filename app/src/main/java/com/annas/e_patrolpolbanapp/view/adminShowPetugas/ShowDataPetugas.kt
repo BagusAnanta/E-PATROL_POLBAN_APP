@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.annas.e_patrolpolbanapp.R
 import com.annas.e_patrolpolbanapp.model.ModelDatabaseAdmin
 import com.annas.e_patrolpolbanapp.view.component.DialogComponent
+import com.annas.e_patrolpolbanapp.view.main.AdminMenu
 import com.annas.e_patrolpolbanapp.view.main.MainActivity
 import com.annas.e_patrolpolbanapp.viewmodel.HistoryAdminViewModel
 import kotlinx.android.synthetic.main.activity_history_patroli.rvHistory
@@ -111,7 +112,7 @@ class ShowDataPetugas : AppCompatActivity(), DataPetugasAdapter.AdminAdapterCall
 
     override fun onBackPressed() {
         // if user back
-        val intent = Intent(this@ShowDataPetugas, MainActivity::class.java)
+        val intent = Intent(this@ShowDataPetugas, AdminMenu::class.java)
         startActivity(intent)
         finish()
     }

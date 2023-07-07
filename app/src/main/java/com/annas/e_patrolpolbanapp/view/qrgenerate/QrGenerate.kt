@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.annas.e_patrolpolbanapp.R
 import com.annas.e_patrolpolbanapp.view.login.PagePimpinan
+import com.annas.e_patrolpolbanapp.view.main.AdminMenu
 import com.annas.e_patrolpolbanapp.view.main.MainActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.zxing.BarcodeFormat
@@ -38,7 +39,7 @@ class QrGenerate : AppCompatActivity() {
         ButtonQr.setOnClickListener { generateQrCode() }
         ButtonPrint.setOnClickListener {
             Toast.makeText(applicationContext,"Print QR Code",Toast.LENGTH_SHORT).show()
-            val intent = Intent(this@QrGenerate,MainActivity::class.java)
+            val intent = Intent(this@QrGenerate,AdminMenu::class.java)
             startActivity(intent)
             finish()
         }
@@ -59,5 +60,12 @@ class QrGenerate : AppCompatActivity() {
         } catch (E : WriterException){
             Toast.makeText(applicationContext,E.localizedMessage,Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this@QrGenerate,AdminMenu::class.java)
+        startActivity(intent)
+        finish()
     }
 }
