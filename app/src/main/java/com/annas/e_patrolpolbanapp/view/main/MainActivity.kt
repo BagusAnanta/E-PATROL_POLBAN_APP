@@ -11,6 +11,7 @@ import com.annas.e_patrolpolbanapp.view.absen.AbsenActivity
 import com.annas.e_patrolpolbanapp.view.adminInputPetugas.InputDataPetugas
 import com.annas.e_patrolpolbanapp.view.adminShowPetugas.ShowDataPetugas
 import com.annas.e_patrolpolbanapp.view.component.DialogComponent
+import com.annas.e_patrolpolbanapp.view.history.HistoryActivity
 import com.annas.e_patrolpolbanapp.view.login.LoginActivity
 import com.annas.e_patrolpolbanapp.view.login.PagePimpinan
 import com.annas.e_patrolpolbanapp.view.patroliChecked.PatroliActivity
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         cvPimpinan.setOnClickListener {
             if (session.getLoginBy().equals("Pimpinan")) {
                 strTitle = "Login Pimpinan"
-                val intent = Intent(this@MainActivity, PagePimpinan::class.java)
+                val intent = Intent(this@MainActivity, HistoryActivity::class.java)
                 intent.putExtra(AbsenActivity.DATA_TITLE, strTitle)
                 startActivity(intent)
             } else {

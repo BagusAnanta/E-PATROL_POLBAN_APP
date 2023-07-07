@@ -15,10 +15,10 @@ class PagePimpinan : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page_pimpinan)
-        setInitLayout()
+        // setInitLayout()
     }
 
-    private fun setInitLayout() {
+   /* private fun setInitLayout() {
         val session = SessionLogin(this)
         session.checkLogin()
 
@@ -34,7 +34,7 @@ class PagePimpinan : AppCompatActivity() {
     }
 
     private fun qrCodeGenerateOption(){
-       /* val onPositif = {
+       *//* val onPositif = {
             val intent = Intent(this@PagePimpinan, QrGenerate::class.java)
             startActivity(intent)
             finish()
@@ -46,7 +46,7 @@ class PagePimpinan : AppCompatActivity() {
              iconSet = android.R.drawable.ic_dialog_info,
              onCancel = true,
              onPositiveFunction = onPositif
-         )*/
+         )*//*
 
         val builder = AlertDialog.Builder(this@PagePimpinan)
         builder.setTitle("Generate QR Code")
@@ -69,5 +69,5 @@ class PagePimpinan : AppCompatActivity() {
         alertDialog.setCancelable(false)
         alertDialog.show()
 
-    }
+    }*/
 }

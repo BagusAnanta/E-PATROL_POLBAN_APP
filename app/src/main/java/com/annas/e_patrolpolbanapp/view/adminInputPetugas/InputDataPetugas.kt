@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.annas.e_patrolpolbanapp.R
 import com.annas.e_patrolpolbanapp.model.ModelDatabaseAdmin
 import com.annas.e_patrolpolbanapp.view.main.MainActivity
+import com.annas.e_patrolpolbanapp.view.qrgenerate.QrGenerate
 import com.annas.e_patrolpolbanapp.viewmodel.AdminViewModel
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_input_data_petugas.*
@@ -62,7 +63,7 @@ class InputDataPetugas : AppCompatActivity() {
                 Toast.makeText(this,"Data Tidak Boleh Kosong !", Toast.LENGTH_SHORT).show()
             } else {
                 // insert data
-                adminViewModel?.addDataPetugas(
+                adminViewModel.addDataPetugas(
                     nama_Petugas,
                     no_Petugas,
                     area_petugas,
@@ -76,7 +77,7 @@ class InputDataPetugas : AppCompatActivity() {
 
                 Toast.makeText(this,"Data Anda berhasil dimasukkan!", Toast.LENGTH_SHORT).show()
 
-                val intent = Intent(this@InputDataPetugas,MainActivity::class.java)
+                val intent = Intent(this@InputDataPetugas,QrGenerate::class.java)
                 startActivity(intent)
                 finish()
             }

@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.annas.e_patrolpolbanapp.R
 import com.annas.e_patrolpolbanapp.view.login.PagePimpinan
+import com.annas.e_patrolpolbanapp.view.main.MainActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
@@ -37,7 +38,7 @@ class QrGenerate : AppCompatActivity() {
         ButtonQr.setOnClickListener { generateQrCode() }
         ButtonPrint.setOnClickListener {
             Toast.makeText(applicationContext,"Print QR Code",Toast.LENGTH_SHORT).show()
-            val intent = Intent(this@QrGenerate,PagePimpinan::class.java)
+            val intent = Intent(this@QrGenerate,MainActivity::class.java)
             startActivity(intent)
             finish()
         }
